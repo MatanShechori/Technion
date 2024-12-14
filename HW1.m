@@ -7,10 +7,29 @@ a = 1; % m
 k = 4; %N/m
 c1 = 0.1;
 c3 = 0.001;
-teta = 30; %degrees
+teta = 30*pi/180; % rad
 
 %% quesion 5
 
+f = @(x) k*(1- L0/(sqrt(x^2+a^2)))*x-m*g*sin(teta);
+
+a = 1; % Lower bound
+b = 3; % Upper bound
+tol = 1e-6; % Tolerance for convergence
+
+while (b - a) / 2 > tol
+    c = (a + b) / 2; % Midpoint
+    if f(c) == 0 % Check if we found the root
+        break;
+    elseif f(a) * f(c) < 0
+        b = c; % Root is in the left half
+    else
+        a = c; % Root is in the right half
+    end
+end
+
+root = (a + b) / 2;
+disp(root);
 
 
 %% question 6
