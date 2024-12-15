@@ -34,7 +34,8 @@ disp(root);
 
 %% question 6
 
-
+dufgsdgfisdgfisdfuidsfgids
+asdyhfduioasdghfdisadgfg
 
 %% question 7
 
