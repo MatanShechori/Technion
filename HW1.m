@@ -14,12 +14,16 @@ teta = 30*pi/180; % rad
 f = @(x) k*(1- L0/(sqrt(x^2+a^2)))*x-m*g*sin(teta);
 
 root  = fzero(f,1);
-fprintf('root' , root);
+disp(root);
 
 
 %% question 6
-L0 = 5; %m new initial length
-sol = fzero(f,1);
+L1 = 5; %m new initial length
+g = @(x) k*(1- L1/(sqrt(x^2+a^2)))*x-m*g*sin(teta);
+guess = linspace(-10,10,100);
+for i=1:length(guess)
+    sol(i) = fsolve(g,guess(i));
+end
 
 disp(sol);
 
