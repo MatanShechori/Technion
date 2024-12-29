@@ -9,18 +9,27 @@ c3 = 0.001;
 teta = 30*pi/180; % rad
 
 %% quesion 5
-L0 = 0.2;
-f = @(x,L) k*(1- L/(sqrt(x^2+a^2)))*x-m*g*sin(teta);
-initial_guess = -10:1:10;
-root = zeros(size(initial_guess));
-for i = 1:length(initial_guess)
-    root(i)  = fzero(@(x)f(x,L0),initial_guess(i));
-end
-root = unique(round(root,5));
 
-% Check stability of the solutions:
-q5_stable = is_stable(f,root,L0);
-disp(q5_stable);
+f = @(x) k*(1- L0/(sqrt(x^2+a^2)))*x-m*g*sin(teta);
+
+a = 1; % Lower bound
+b = 3; % Upper bound
+tol = 1e-6; % Tolerance for convergence
+
+while (b - a) / 2 > tol
+    c = (a + b) / 2; % Midpoint
+    if f(c) == 0 % Check if we found the root
+        break;
+    elseif f(a) * f(c) < 0
+        b = c; % Root is in the left half
+    else
+        a = c; % Root is in the right half
+    end
+end
+
+root = (a + b) / 2;
+disp(root);
+
 
 %% question 6
 % find all the available solutions of f(x) when L0 = 5 m
