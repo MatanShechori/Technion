@@ -39,26 +39,69 @@ disp(q6_stable);
 %% question 7
 
 % find diffferent solution quantity based on L0
-L0 = 0:0.01:10;
-sol = zeros(size(L0));
-for i = 2:length(L0)
-    sol(i) = length(unique(round(fzero(@(x)f(x,L0(i)),initial_guess),5)));
+x = -10:0.01:10;
+% isolating L0 from f when f=0
+L0 = @(x) sqrt(a^2 + x^2) * (1 - (m*g*sin(teta))/(k*x));
+L0_values = double(zeros(size(x)));
+
+%Calculate L0 for each x
+for i = 1:length(x)
+    L0_values(i) = L0(x(i));
 end
-solmat = [L0;sol];
-solmat =unique(solmat','columns');
 
-%% Q8
+%plot L0 vs x
+figure
+plot(x,L0_values)
+xlabel('x')
+ylabel('L0')
+title('L0 vs x')
+ylim([0 20])
+xlim([-10 10])
+grid on
+grid minor
+
+% second plot for V(x) 
+L0_cr = 3.1429;
+x = -9:0.01:11;
+L0 = [0.2,2.5,L0_cr,5,7];
+V = @(x,L) 0.5*k*(sqrt(a^2 + x.^2) - L).^2 - m*g*sin(teta)*x;
+tempV = zeros(size(x));
+figure
+for i = 1:length(L0)
+    for j = 1:length(x)
+        tempV(j) = V(x(j),L0(i));
+    end
+    plot(x,tempV)
+    hold on
+end
+
+xlabel('x[m]','Interpreter','latex','FontSize',14);
+ylabel('V(x)[j]','Interpreter','latex','FontSize',14);
+legend('$\ell_{0}$ = 0.2','$\ell_{0}$ = 2.5','$\ell_{0}$ = 3.1429','$\ell_{0}$ = 5','$\ell_{0}$ = 7','Interpreter','latex','FontSize',8);
+grid on
+grid minor
 
 
-%% Q9
 
 
-%% Q10
-
-%% Q11
 
 
-%% Q12
+
+%% Question 8
+
+
+%% Question 9
+
+
+%% Question 10
+
+%% Question 11
+
+
+%% Question 12
+
+
+%% Functions
 
 function [stable] = is_stable(f,test_points,L0)
     epsilon = 1e-6; % Small perturbation for numerical derivative
@@ -66,10 +109,10 @@ function [stable] = is_stable(f,test_points,L0)
     for i = 1:length(test_points)
     x = test_points(i);
     f_prime = (f(x + epsilon, L0) - f(x - epsilon, L0)) / (2 * epsilon); % Numerical derivative
-        if f_prime <= 0
-        stable(2,i) = 1;
-        else
+        if f_prime < 0
         stable(2,i) = 0;
+        else
+        stable(2,i) = 1;
         end
     end
 end
