@@ -9,26 +9,18 @@ c3 = 0.001;
 teta = 30*pi/180; % rad
 
 %% quesion 5
-
+L0 = 0.2;
 f = @(x) k*(1- L0/(sqrt(x^2+a^2)))*x-m*g*sin(teta);
-
-a = 1; % Lower bound
-b = 3; % Upper bound
-tol = 1e-6; % Tolerance for convergence
-
-while (b - a) / 2 > tol
-    c = (a + b) / 2; % Midpoint
-    if f(c) == 0 % Check if we found the root
-        break;
-    elseif f(a) * f(c) < 0
-        b = c; % Root is in the left half
-    else
-        a = c; % Root is in the right half
-    end
+initial_guess = 1:0.1:10;
+root = zeros(size(initial_guess));
+for i = 1:length(initial_guess)
+    root(i)  = fzero(@(x)f(x,L0),initial_guess(i));
 end
+root = unique(round(root,5));
 
-root = (a + b) / 2;
-disp(root);
+% Check stability of the solutions: 
+q5_stable = is_stable(f,root,L0);
+disp(q5_stable);
 
 
 %% question 6
@@ -46,7 +38,14 @@ disp(q6_stable);
 
 %% question 7
 
-
+% find diffferent solution quantity based on L0
+L0 = 0:0.01:10;
+sol = zeros(size(L0));
+for i = 1:length(L0)
+    sol(i) = length(unique(round(fzero(@(x)f(x,L0(i)),initial_guess),5)));
+end
+solmat = [L0;sol];
+solmat =unique(solmat','columns');
 
 %% Q8
 
