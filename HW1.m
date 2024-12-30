@@ -10,8 +10,8 @@ teta = 30*pi/180; % rad
 
 %% quesion 5
 L0 = 0.2;
-f = @(x) k*(1- L0/(sqrt(x^2+a^2)))*x-m*g*sin(teta);
-initial_guess = 1:0.1:10;
+f = @(x,L) k*(1- L/(sqrt(x^2+a^2)))*x-m*g*sin(teta);
+initial_guess = -10:0.1:10;
 root = zeros(size(initial_guess));
 for i = 1:length(initial_guess)
     root(i)  = fzero(@(x)f(x,L0),initial_guess(i));
@@ -41,7 +41,7 @@ disp(q6_stable);
 % find diffferent solution quantity based on L0
 L0 = 0:0.01:10;
 sol = zeros(size(L0));
-for i = 1:length(L0)
+for i = 2:length(L0)
     sol(i) = length(unique(round(fzero(@(x)f(x,L0(i)),initial_guess),5)));
 end
 solmat = [L0;sol];
@@ -67,9 +67,9 @@ function [stable] = is_stable(f,test_points,L0)
     x = test_points(i);
     f_prime = (f(x + epsilon, L0) - f(x - epsilon, L0)) / (2 * epsilon); % Numerical derivative
         if f_prime <= 0
-        stable(2,i) = 0;
-        else
         stable(2,i) = 1;
+        else
+        stable(2,i) = 0;
         end
     end
 end
