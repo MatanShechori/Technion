@@ -118,31 +118,31 @@ title('Q8 figure 1: x vs L0')
 
 %% Question 9
 % state space representation of the system
-%x1 = x;
-%x2 = x_dot;
-%x1_dot = x2
+
 time_vec  = 0:0.01:25;
 l0 =0.2;
 x0 = [-2,-1,0,1,2];
 xdot = @(t,x,l0) [x(2); g*sin(teta) - (c1*x(2)+c3*x(2)^3)/m - k*(1-l0/sqrt(x(1)^2+a^2))*x(1)/m];
 
-    figure;
+% Figure 1 l0 = 0.2:
+figure;
 for i = 1:length(x0)
     [~,X] = ode45(@(t,x) xdot(t,x,l0),time_vec,[x0(i) 0]);
   
     plot(X(:,1),X(:,2));
     hold on
 end
- plot(q5_stable(1,1), 0, 'r.','MarkerSize', 20);
- legend('$x_{0} = -2$','$x_{0} = -1$','$x_{0} = 0$','$x_{0} = 1$','$x_{0} = 2$','stable eq','Interpreter','latex','FontSize',8);
- xlabel('$x$','Interpreter','latex','FontSize',14);
- ylabel('$\dot{x}$','Interpreter','latex','FontSize',14);
+plot(q5_stable(1,1), 0, 'r.','MarkerSize', 20);
+legend('$x_{0} = -2$','$x_{0} = -1$','$x_{0} = 0$','$x_{0} = 1$','$x_{0} = 2$','stable eq','Interpreter','latex','FontSize',8);
+xlabel('$x$','Interpreter','latex','FontSize',14);
+ylabel('$\dot{x}$','Interpreter','latex','FontSize',14);
 title('Q9: $l_{0} = 0.2$','Interpreter','latex','FontSize',14);
 grid on
 grid minor
 xlim([-4 6])
 ylim([-8 8])
 
+% figure 2 l0 = 5:
     l0 = 5;
     figure;
 for i = 1:length(x0)
@@ -164,10 +164,40 @@ grid on
 grid minor
 
 
-
-
-
 %% Question 10
+
+% Initial conditions
+x_eq = q6_stable(1,3);
+l0 = 5;
+k_eq = k*(1-l0/sqrt(x_eq^2+a^2))+k*l0*x_eq^2/(x_eq^2+a^2)^1.5;
+Omegan = sqrt(k_eq/m);
+zeta = c1/(2*m*Omegan);
+Omegad = Omegan*sqrt(1-zeta^2);
+
+
+u0 = 2;
+x0 = u0+x_eq;
+v0 = 0;
+Amp = sqrt(u0^2+(v0+zeta*Omegan*u0)/Omegad^2);
+phi0 = atan((u0*Omegad)/(v0+zeta*Omegan*u0));
+
+time_vec = 0:0.01:100;
+
+% Response for u0 = 2:
+u = zeros(size(time_vec));
+for i = 1:length(time_vec)
+    u(i) = Amp*exp(-zeta*Omegan*time_vec(i))*sin(Omegad*time_vec(i)+phi0);
+end
+
+[~,x] = ode45(@(t,x) xdot(t,x,l0),time_vec,[x0 0]);
+figure
+plot(time_vec,x(:,1)+x_eq);
+hold on
+plot(time_vec,u+x_eq,'--g')
+grid on
+grid minor
+
+
 
 %% Question 11
 
