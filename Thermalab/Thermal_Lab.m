@@ -68,3 +68,4 @@ for j = 2:length(materials)
     fprintf('Ratio of %s slope to steel slope: %.2f\n', materials{j}, ratio(j));
 end
 
+%% Section 2: Heat transfer through fins
