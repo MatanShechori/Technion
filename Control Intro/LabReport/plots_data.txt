@@ -1,0 +1,99 @@
+For q12 0.36
+Simulation
+Rise Time: 1.976471
+Settling Time: 6.087641
+Overshoot: 3.115534
+
+Experiment
+Rise Time: 0.085718
+Settling Time: 1.597300
+Overshoot: 70.317003
+
+For q12 0.36
+Simulation
+Rise Time: 1.043293
+Settling Time: 5.761945
+Overshoot: 14.466390
+
+Experiment
+Rise Time: 0.085718
+Settling Time: 1.597300
+Overshoot: 70.317003
+
+For q12 0.36
+Simulation
+Rise Time: 0.762452
+Settling Time: 5.239834
+Overshoot: 22.594158
+
+Experiment
+Rise Time: 0.085718
+Settling Time: 1.597300
+Overshoot: 70.317003
+
+For q12 0.36
+Simulation
+Rise Time: 4.455813
+Settling Time: 8.886732
+Overshoot: 0.000000
+
+Experiment
+Rise Time: 0.085718
+Settling Time: 1.597300
+Overshoot: 70.317003
+
+For q12 0.36
+Simulation
+Rise Time: 0.668530
+Settling Time: 4.879813
+Overshoot: 26.362476
+
+Experiment
+Rise Time: 0.085718
+Settling Time: 1.597300
+Overshoot: 70.317003
+
+For q18 0.1
+Simulation
+Rise Time: 3.210380
+Settling Time: 26.914274
+Overshoot: 17.380001
+
+Experiment
+Rise Time: 0.085718
+Settling Time: 1.597300
+Overshoot: 70.317003
+
+For q18 0.4
+Simulation
+Rise Time: 2.172828
+Settling Time: 25.486063
+Overshoot: 46.083928
+
+Experiment
+Rise Time: 0.085718
+Settling Time: 1.597300
+Overshoot: 70.317003
+
+For q18 0.8
+Simulation
+Rise Time: 1.685991
+Settling Time: 41.459352
+Overshoot: 71.326401
+
+Experiment
+Rise Time: 0.085718
+Settling Time: 1.597300
+Overshoot: 70.317003
+
+For q18 1.1
+Simulation
+Rise Time: 1.564385
+Settling Time: 44.450243
+Overshoot: 73.664621
+
+Experiment
+Rise Time: 0.085718
+Settling Time: 1.597300
+Overshoot: 70.317003
+
